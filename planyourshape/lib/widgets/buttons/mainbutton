@@ -1,2 +1,0 @@
-import '../../vars/mainvars.dart';
-import 'package:flutter/material.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planyourshape/widgets/forms/textform.dart';
+import '../buttons/mainbutton.dart';
 
 class LineForm extends StatefulWidget {
   const LineForm({Key? key}) : super(key: key);
@@ -26,16 +27,10 @@ class LineFormState extends State<LineForm> {
             labelName: "Password",
             obscureText: true,
           ),
-          ElevatedButton(
-            onPressed: () {
-              // Validate will return true if the form is valid, or false if
-              // the form is invalid.
-              if (_formKey.currentState!.validate()) {
-                // Process data.
-              }
-            },
-            child: const Text('Submit'),
-          ),
+          const SizedBox(height: 10),
+          Container(
+              alignment: Alignment.center,
+              child: MainButton(label: "Se connecter", formKey: _formKey)),
         ],
       ),
     );
