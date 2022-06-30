@@ -17,6 +17,7 @@ class MainButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+          minimumSize: const Size.fromHeight(40),
           primary: mainColor,
           onPrimary: formBackgroundColor,
           elevation: 0.0,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planyourshape/widgets/forms/textform.dart';
-import '../buttons/mainbutton.dart';
+import '../buttons/main_button.dart';
 
 class LineForm extends StatefulWidget {
   const LineForm({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class LineFormState extends State<LineForm> {
     return Form(
       key: _formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           const LoginTextForm(
             labelName: "Username",
@@ -28,9 +28,7 @@ class LineFormState extends State<LineForm> {
             obscureText: true,
           ),
           const SizedBox(height: 10),
-          Container(
-              alignment: Alignment.center,
-              child: MainButton(label: "Se connecter", formKey: _formKey)),
+          MainButton(label: "Se connecter", formKey: _formKey),
         ],
       ),
     );
