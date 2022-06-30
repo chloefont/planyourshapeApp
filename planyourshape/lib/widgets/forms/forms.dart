@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planyourshape/widgets/forms/textform.dart';
 import '../buttons/main_button.dart';
+import '../buttons/link_button.dart';
 
 class LineForm extends StatefulWidget {
   const LineForm({Key? key}) : super(key: key);
@@ -29,6 +30,9 @@ class LineFormState extends State<LineForm> {
           ),
           const SizedBox(height: 10),
           MainButton(label: "Se connecter", formKey: _formKey),
+          const LinkedButton(
+            label: "S'inscrire",
+          ),
         ],
       ),
     );
