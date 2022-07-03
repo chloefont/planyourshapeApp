@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planyourshape/http_handler.dart';
 import '../../vars/mainvars.dart';
 
 class LinkedButton extends StatelessWidget {
@@ -16,7 +17,16 @@ class LinkedButton extends StatelessWidget {
         primary: mainColor,
         minimumSize: const Size.fromHeight(40),
       ),
-      onPressed: () {},
+      onPressed: () {
+        HttpHandler httpHandler = HttpHandler();
+
+        httpHandler.register(
+            firstname: "Chloé",
+            lastname: "Fontaine",
+            username: "cocotte",
+            email: "cocotte@gmail.com",
+            password: "cocotte minute");
+      },
       child: Text(label),
     );
   }

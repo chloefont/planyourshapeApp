@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planyourshape/http_handler.dart';
 import '../../vars/mainvars.dart';
 
 class MainButton extends StatelessWidget {
@@ -23,6 +24,8 @@ class MainButton extends StatelessWidget {
           elevation: 0.0,
           side: const BorderSide(color: mainColor)),
       onPressed: () {
+        HttpHandler httpHandler = HttpHandler();
+        httpHandler.login("bafana2", "banan124e");
         // Validate will return true if the form is valid, or false if
         // the form is invalid.
         if (_formKey.currentState!.validate()) {
