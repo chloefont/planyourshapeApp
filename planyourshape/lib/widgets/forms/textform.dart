@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:planyourshape/main.dart';
 import '../../vars/mainvars.dart';
 
-class LoginTextForm extends StatefulWidget {
+class TextForm extends StatefulWidget {
   final String labelName;
   final bool obscureText;
+  final TextEditingController? controller;
 
-  const LoginTextForm({
+  const TextForm({
     required this.labelName,
+    this.controller,
     this.obscureText = false,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<LoginTextForm> createState() => _LoginTextFormState();
+  State<TextForm> createState() => _TextFormState();
 }
 
-class _LoginTextFormState extends State<LoginTextForm> {
+class _TextFormState extends State<TextForm> {
   final FocusNode focusNode = FocusNode();
 
   @override
@@ -35,8 +37,10 @@ class _LoginTextFormState extends State<LoginTextForm> {
     );
     const focusedBorder =
         OutlineInputBorder(borderSide: BorderSide(color: mainColor));
+
     return TextFormField(
       focusNode: focusNode,
+      controller: widget.controller,
       decoration: InputDecoration(
         labelText: widget.labelName,
         labelStyle: TextStyle(

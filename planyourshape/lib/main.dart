@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import './test.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 
-import 'screens/login.dart';
+import 'screens/login/login.dart';
+import 'http_handler.dart';
 
 Future<void> main() async {
+  setup();
   await dotenv.load(fileName: ".env");
   dire(phrase: dotenv.env['FOO'] as String);
   runApp(const MyApp());
+}
+
+void setup() {
+  GetIt.I.registerSingleton(HttpHandler());
 }
 
 class MyApp extends StatelessWidget {
@@ -35,4 +43,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
