@@ -3,9 +3,10 @@ import 'package:get_it/get_it.dart';
 import 'package:planyourshape/main.dart';
 import 'package:planyourshape/widgets/forms/textform.dart';
 import 'package:provider/provider.dart';
+import 'package:vrouter/vrouter.dart';
 
-import '../../widgets/buttons/main_button.dart';
-import '../../widgets/buttons/link_button.dart';
+import '../buttons/main_button.dart';
+import '../buttons/link_button.dart';
 import '../../http_handler.dart';
 
 class LoginForm extends StatefulWidget {
@@ -51,8 +52,11 @@ class LoginFormState extends State<LoginForm> {
                   .get<HttpHandler>()
                   .login(usernameController.text, passwordController.text),
               formKey: _formKey),
-          const LinkedButton(
+          LinkedButton(
             label: "S'inscrire",
+            onPressedFunc: () {
+              VRouter.of(context).to('/register');
+            },
           ),
         ],
       ),

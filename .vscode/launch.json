@@ -6,23 +6,26 @@
     "configurations": [
         {
             "name": "planyourshape",
-            "cwd": "planyourshape",
+            //"cwd": "planyourshape",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "program": "./lib/main.dart",
         },
         {
             "name": "planyourshape (profile mode)",
-            "cwd": "planyourshape",
+            //"cwd": "planyourshape",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "program": "./lib/main.dart",
         },
         {
             "name": "planyourshape (release mode)",
-            "cwd": "planyourshape",
+            //"cwd": "planyourshape",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "release",
+            "program": "./lib/main.dart",
         }
     ]
 }
