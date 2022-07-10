@@ -4,9 +4,11 @@ import '../../vars/mainvars.dart';
 
 class LinkedButton extends StatelessWidget {
   final String label;
+  final void Function()? onPressedFunc;
 
   const LinkedButton({
     required this.label,
+    required this.onPressedFunc,
     Key? key,
   }) : super(key: key);
 
@@ -17,16 +19,7 @@ class LinkedButton extends StatelessWidget {
         primary: mainColor,
         minimumSize: const Size.fromHeight(40),
       ),
-      onPressed: () {
-        HttpHandler httpHandler = HttpHandler();
-
-        httpHandler.register(
-            firstname: "Chloé",
-            lastname: "Fontaine",
-            username: "cocotte",
-            email: "cocotte@gmail.com",
-            password: "cocotte minute");
-      },
+      onPressed: onPressedFunc,
       child: Text(label),
     );
   }
