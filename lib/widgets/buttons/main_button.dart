@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:planyourshape/http_handler.dart';
-import '../../vars/mainvars.dart';
 
 class MainButton extends StatelessWidget {
   final String label;
@@ -23,10 +22,8 @@ class MainButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           minimumSize: const Size.fromHeight(40),
-          primary: mainColor,
-          onPrimary: formBackgroundColor,
           elevation: 0.0,
-          side: const BorderSide(color: mainColor)),
+          side: BorderSide(color: Theme.of(context).colorScheme.primary)),
       onPressed: () {
         // Validate will return true if the form is valid, or false if
         // the form is invalid.

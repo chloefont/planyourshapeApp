@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../vars/mainvars.dart';
 
 class CustCard extends StatelessWidget {
   final double height;
@@ -18,14 +17,16 @@ class CustCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(15),
       width: 350,
-      decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-        BoxShadow(
-          blurRadius: 19.0,
-          spreadRadius: 0.0,
-          color: Color(0xFFF0D8D8),
-          offset: Offset(0, 4),
-        )
-      ]),
+      decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 19.0,
+              spreadRadius: 0.0,
+              color: Theme.of(context).colorScheme.secondary,
+              offset: const Offset(0, 4),
+            )
+          ]),
       child: child,
     );
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:planyourshape/main.dart';
-import '../../vars/mainvars.dart';
 
 class TextForm extends StatefulWidget {
   final String labelName;
@@ -32,8 +31,9 @@ class _TextFormState extends State<TextForm> {
 
   @override
   Widget build(BuildContext context) {
-    const enabledBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: formColor, width: 1.0),
+    var enabledBorder = OutlineInputBorder(
+      borderSide: BorderSide(
+          color: Theme.of(context).colorScheme.secondary, width: 1.0),
     );
     const focusedBorder =
         OutlineInputBorder(borderSide: BorderSide(color: mainColor));
@@ -45,14 +45,14 @@ class _TextFormState extends State<TextForm> {
         labelText: widget.labelName,
         labelStyle: TextStyle(
             color: focusNode.hasFocus
-                ? mainColor
+                ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).textTheme.bodyText1!.color),
         hintText: 'Enter your ${widget.labelName.toLowerCase()}',
         errorBorder: enabledBorder,
         focusedErrorBorder: focusedBorder,
         enabledBorder: enabledBorder,
         focusedBorder: focusedBorder,
-        focusColor: mainColor,
+        focusColor: Theme.of(context).colorScheme.primary,
       ),
       validator: (String? value) {
         if (value == null || value.isEmpty) {

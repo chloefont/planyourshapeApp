@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:planyourshape/screens/login/register.dart';
+import 'package:planyourshape/theme/custom_theme.dart';
 import 'package:vrouter/vrouter.dart';
 
 import './test.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
     return VRouter(
       debugShowCheckedModeBanner: false,
       initialUrl: '/login',
+      theme: CustomTheme.lightTheme,
       routes: [
         VWidget(path: '/login', widget: const Login()),
         VWidget(path: '/register', widget: const Register())
