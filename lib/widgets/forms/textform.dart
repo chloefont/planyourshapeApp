@@ -35,8 +35,8 @@ class _TextFormState extends State<TextForm> {
       borderSide: BorderSide(
           color: Theme.of(context).colorScheme.secondary, width: 1.0),
     );
-    const focusedBorder =
-        OutlineInputBorder(borderSide: BorderSide(color: mainColor));
+    var focusedBorder = OutlineInputBorder(
+        borderSide: BorderSide(color: Theme.of(context).colorScheme.primary));
 
     return TextFormField(
       focusNode: focusNode,
