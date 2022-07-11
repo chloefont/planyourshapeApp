@@ -1,6 +1,7 @@
 import 'dart:ffi';
-import '../../widgets/forms/login_form.dart';
-import '../../widgets/cards/main-card.dart';
+import 'package:planyourshape/widgets/forms/register_form.dart';
+
+import '../widgets/cards/main-card.dart';
 
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,10 @@ class Register extends StatelessWidget {
           CustCard(
             height: 300,
             width: 350,
-            child: Padding(padding: EdgeInsets.all(8.0)),
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: RegisterForm(),
+            ),
           ),
         ],
       ),

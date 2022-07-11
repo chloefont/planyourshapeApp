@@ -3,11 +3,13 @@ import 'package:planyourshape/main.dart';
 
 class TextForm extends StatefulWidget {
   final String labelName;
+  final String? description;
   final bool obscureText;
   final TextEditingController? controller;
 
   const TextForm({
     required this.labelName,
+    this.description,
     this.controller,
     this.obscureText = false,
     Key? key,
@@ -47,7 +49,8 @@ class _TextFormState extends State<TextForm> {
             color: focusNode.hasFocus
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).textTheme.bodyText1!.color),
-        hintText: 'Enter your ${widget.labelName.toLowerCase()}',
+        hintText: widget.description ??
+            'Enter your ${widget.labelName.toLowerCase()}',
         errorBorder: enabledBorder,
         focusedErrorBorder: focusedBorder,
         enabledBorder: enabledBorder,

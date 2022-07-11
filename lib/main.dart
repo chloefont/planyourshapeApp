@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:planyourshape/screens/login/register.dart';
+import 'package:planyourshape/screens/register.dart';
 import 'package:planyourshape/theme/custom_theme.dart';
 import 'package:vrouter/vrouter.dart';
 
@@ -8,7 +8,7 @@ import './test.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/login/login.dart';
+import 'screens/login.dart';
 import 'http_handler.dart';
 
 Future<void> main() async {
