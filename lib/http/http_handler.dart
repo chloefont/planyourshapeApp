@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
+import '../models/auth.dart';
 import './error_messages.dart';
 
 class HttpHandler {
@@ -19,9 +22,16 @@ class HttpHandler {
   Future<void> login(String username, String password) async {
     final res = await _dio
         .post("/login", data: {'username': username, 'password': password});
-    Map<String, dynamic> json = res.data;
+    Map<String, dynamic> jsonStr = res.data;
 
-    log(json.toString());
+    final authBox = await Hive.openBox('auth');
+
+    GetIt.I.get<Auth>().setToken(jsonStr['token']);
+    GetIt.I.get<Auth>().setRefreshToken(jsonStr['refreshToken']);
+    await GetIt.I.get<Auth>().save();
+
+    log((authBox.get('auth') as Auth).token);
+    //log(GetIt.I.get<Auth>().getRefreshToken());
   }
 
   Future<void> register(

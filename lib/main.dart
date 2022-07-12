@@ -1,25 +1,36 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:planyourshape/screens/register.dart';
 import 'package:planyourshape/theme/custom_theme.dart';
 import 'package:vrouter/vrouter.dart';
 
 import './test.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:provider/provider.dart';
+import './models/auth.dart';
 
 import 'screens/login.dart';
 import 'http/http_handler.dart';
 
 Future<void> main() async {
-  setup();
+  await setup();
   await dotenv.load(fileName: ".env");
   dire(phrase: dotenv.env['FOO'] as String);
   runApp(const MyApp());
 }
 
-void setup() {
-  GetIt.I.registerSingleton(HttpHandler());
+Future<void> setup() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(AuthAdapter());
+
+  final authBox = await Hive.openBox('data');
+
+  GetIt.I
+    ..registerSingleton(HttpHandler())
+    ..registerSingleton<Auth>(
+        authBox.get('auth', defaultValue: Auth(token: "", refreshToken: "")));
 }
 
 class MyApp extends StatelessWidget {
