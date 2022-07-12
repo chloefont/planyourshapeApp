@@ -5,13 +5,17 @@ class TextForm extends StatefulWidget {
   final String labelName;
   final String? description;
   final bool obscureText;
+  final TextInputType? keyboardType;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const TextForm({
     required this.labelName,
     this.description,
     this.controller,
     this.obscureText = false,
+    this.keyboardType,
+    this.validator,
     Key? key,
   }) : super(key: key);
 
@@ -57,13 +61,15 @@ class _TextFormState extends State<TextForm> {
         focusedBorder: focusedBorder,
         focusColor: Theme.of(context).colorScheme.primary,
       ),
-      validator: (String? value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter some text';
-        }
-        return null;
-      },
+      validator: widget.validator ??
+          (String? value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter some text';
+            }
+            return null;
+          },
       obscureText: widget.obscureText,
+      keyboardType: widget.keyboardType,
     );
   }
 }

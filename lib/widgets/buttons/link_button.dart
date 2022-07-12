@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planyourshape/http_handler.dart';
+import 'package:planyourshape/http/http_handler.dart';
 
 class LinkedButton extends StatelessWidget {
   final String label;

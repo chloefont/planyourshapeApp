@@ -9,7 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/login.dart';
-import 'http_handler.dart';
+import 'http/http_handler.dart';
 
 Future<void> main() async {
   setup();
@@ -37,7 +37,10 @@ class MyApp extends StatelessWidget {
         VWidget(path: '/register', widget: const Register())
       ],
       builder: (BuildContext ctx, Widget child) {
-        return Material(child: child);
+        return Scaffold(
+          body: child,
+          resizeToAvoidBottomInset: false,
+        );
       },
     );
   }

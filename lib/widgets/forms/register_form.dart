@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:planyourshape/main.dart';
@@ -7,7 +8,7 @@ import 'package:vrouter/vrouter.dart';
 
 import '../buttons/main_button.dart';
 import '../buttons/link_button.dart';
-import '../../http_handler.dart';
+import '../../http/http_handler.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -57,6 +58,7 @@ class RegisterFormState extends State<RegisterForm> {
           TextForm(
             labelName: "Email",
             controller: emailController,
+            keyboardType: TextInputType.emailAddress,
           ),
           const SizedBox(height: 10),
           TextForm(
@@ -70,13 +72,31 @@ class RegisterFormState extends State<RegisterForm> {
             description: "Enter your password",
             controller: passwordConfirmationController,
             obscureText: true,
+            validator: (String? passwordconfirmation) {
+              if (passwordController.text.compareTo(passwordconfirmation!) ==
+                  0) {
+                return null;
+              }
+              return "Password isn't the same";
+            },
           ),
           const SizedBox(height: 10),
           MainButton(
               label: "Register",
-              onPressedFunc: () => GetIt.I
-                  .get<HttpHandler>()
-                  .login(usernameController.text, passwordController.text),
+              onPressedFunc: () async {
+                try {
+                  await GetIt.I.get<HttpHandler>().register(
+                      firstname: firstnameController.text,
+                      lastname: lastnameController.text,
+                      username: usernameController.text,
+                      email: emailController.text,
+                      password: passwordController.text);
+                } catch (e) {
+                  log(e.toString());
+                  Scaffold.of(context)
+                      .showSnackBar(SnackBar(content: Text(e.toString())));
+                }
+              },
               formKey: _formKey),
           LinkedButton(
             label: "I already have an account",

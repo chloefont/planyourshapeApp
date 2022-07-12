@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:planyourshape/http_handler.dart';
+import 'package:planyourshape/http/http_handler.dart';
 
 class MainButton extends StatelessWidget {
   final String label;

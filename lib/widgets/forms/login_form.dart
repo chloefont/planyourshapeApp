@@ -7,7 +7,7 @@ import 'package:vrouter/vrouter.dart';
 
 import '../buttons/main_button.dart';
 import '../buttons/link_button.dart';
-import '../../http_handler.dart';
+import '../../http/http_handler.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
