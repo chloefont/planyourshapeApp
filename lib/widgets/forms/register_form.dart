@@ -86,10 +86,10 @@ class RegisterFormState extends State<RegisterForm> {
               onPressedFunc: () async {
                 try {
                   await GetIt.I.get<HttpHandler>().register(
-                      firstname: firstnameController.text,
-                      lastname: lastnameController.text,
-                      username: usernameController.text,
-                      email: emailController.text,
+                      firstname: firstnameController.text.trim(),
+                      lastname: lastnameController.text.trim(),
+                      username: usernameController.text.trim(),
+                      email: emailController.text.trim(),
                       password: passwordController.text);
                 } catch (e) {
                   log(e.toString());

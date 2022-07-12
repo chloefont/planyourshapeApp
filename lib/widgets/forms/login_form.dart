@@ -48,9 +48,8 @@ class LoginFormState extends State<LoginForm> {
           const SizedBox(height: 10),
           MainButton(
               label: "Login",
-              onPressedFunc: () => GetIt.I
-                  .get<HttpHandler>()
-                  .login(usernameController.text, passwordController.text),
+              onPressedFunc: () => GetIt.I.get<HttpHandler>().login(
+                  usernameController.text.trim(), passwordController.text),
               formKey: _formKey),
           LinkedButton(
             label: "Register",
