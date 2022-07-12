@@ -7,7 +7,7 @@ import 'package:vrouter/vrouter.dart';
 
 import '../buttons/main_button.dart';
 import '../buttons/link_button.dart';
-import '../../http_handler.dart';
+import '../../http/http_handler.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -47,13 +47,12 @@ class LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 10),
           MainButton(
-              label: "Se connecter",
-              onPressedFunc: () => GetIt.I
-                  .get<HttpHandler>()
-                  .login(usernameController.text, passwordController.text),
+              label: "Login",
+              onPressedFunc: () => GetIt.I.get<HttpHandler>().login(
+                  usernameController.text.trim(), passwordController.text),
               formKey: _formKey),
           LinkedButton(
-            label: "S'inscrire",
+            label: "Register",
             onPressedFunc: () {
               VRouter.of(context).to('/register');
             },
