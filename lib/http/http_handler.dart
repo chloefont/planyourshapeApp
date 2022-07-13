@@ -3,8 +3,6 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
-import '../models/auth.dart';
 import './error_messages.dart';
 
 class HttpHandler {
@@ -19,22 +17,22 @@ class HttpHandler {
     _dio = Dio(options);
   }
 
-  Future<void> login(String username, String password) async {
-    final res = await _dio
-        .post("/login", data: {'username': username, 'password': password});
-    Map<String, dynamic> jsonStr = res.data;
-
-    final authBox = await Hive.openBox('auth');
-
-    GetIt.I.get<Auth>().setToken(jsonStr['token']);
-    GetIt.I.get<Auth>().setRefreshToken(jsonStr['refreshToken']);
-    await GetIt.I.get<Auth>().save();
-
-    log((authBox.get('auth') as Auth).token);
-    //log(GetIt.I.get<Auth>().getRefreshToken());
+  Future<Map<String, dynamic>> login(String username, String password) async {
+    try {
+      final res = await _dio
+          .post("/login", data: {'username': username, 'password': password});
+      return res.data;
+    } on DioError catch (e) {
+      if (e.response != null) {
+        Map<String, dynamic> jsonStr = e.response!.data;
+        throw Exception(errorList[jsonStr["error"]["id"] as int]!);
+      } else {
+        throw Exception(errorList[5]);
+      }
+    }
   }
 
-  Future<void> register(
+  Future<Map<String, dynamic>> register(
       {required String firstname,
       required String lastname,
       required String username,
@@ -52,17 +50,13 @@ class HttpHandler {
           },
           options: Options());
 
-      if (res.statusCode! < 300 && res.statusCode! >= 200) {
-        Map<String, dynamic> jsonStr = res.data;
-
-        log(jsonStr.toString());
-      }
+      return res.data;
     } on DioError catch (e) {
       if (e.response != null) {
         Map<String, dynamic> jsonStr = e.response!.data;
         throw Exception(errorList[jsonStr["error"]["id"] as int]!);
       } else {
-        throw Exception("Something went wrong. Please try again.");
+        throw Exception(errorList[5]);
       }
     }
   }

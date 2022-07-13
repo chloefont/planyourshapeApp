@@ -25,12 +25,12 @@ Future<void> setup() async {
   await Hive.initFlutter();
   Hive.registerAdapter(AuthAdapter());
 
-  final authBox = await Hive.openBox('data');
+  final dataBox = await Hive.openBox('data');
 
   GetIt.I
     ..registerSingleton(HttpHandler())
     ..registerSingleton<Auth>(
-        authBox.get('auth', defaultValue: Auth(token: "", refreshToken: "")));
+        dataBox.get('auth', defaultValue: Auth(token: "", refreshToken: "")));
 }
 
 class MyApp extends StatelessWidget {

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:planyourshape/main.dart';
+import 'dart:developer';
 import 'package:planyourshape/widgets/forms/textform.dart';
 import 'package:provider/provider.dart';
 import 'package:vrouter/vrouter.dart';
+import '../../models/auth.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../buttons/main_button.dart';
 import '../buttons/link_button.dart';
 import '../../http/http_handler.dart';
+import '../../http/error_messages.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -47,10 +51,7 @@ class LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 10),
           MainButton(
-              label: "Login",
-              onPressedFunc: () => GetIt.I.get<HttpHandler>().login(
-                  usernameController.text.trim(), passwordController.text),
-              formKey: _formKey),
+              label: "Login", onPressedFunc: onPressedFunc, formKey: _formKey),
           LinkedButton(
             label: "Register",
             onPressedFunc: () {
@@ -60,5 +61,26 @@ class LoginFormState extends State<LoginForm> {
         ],
       ),
     );
+  }
+
+  Future<void> onPressedFunc() async {
+    try {
+      Map<String, dynamic> tokens = await GetIt.I
+          .get<HttpHandler>()
+          .login(usernameController.text.trim(), passwordController.text);
+
+      final dataBox = Hive.box('data');
+      var token = tokens['token'];
+      var refreshToken = tokens['refreshToken'];
+
+      if (token == null || refreshToken == null) {
+        throw Exception(errorList[5]);
+      }
+      GetIt.I.get<Auth>().setToken(token);
+      GetIt.I.get<Auth>().setRefreshToken(refreshToken);
+      await GetIt.I.get<Auth>().save();
+    } catch (e) {
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 }

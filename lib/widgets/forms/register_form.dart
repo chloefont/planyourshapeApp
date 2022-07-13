@@ -5,10 +5,13 @@ import 'package:planyourshape/main.dart';
 import 'package:planyourshape/widgets/forms/textform.dart';
 import 'package:provider/provider.dart';
 import 'package:vrouter/vrouter.dart';
+import '../../models/auth.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../buttons/main_button.dart';
 import '../buttons/link_button.dart';
 import '../../http/http_handler.dart';
+import '../../http/error_messages.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -83,20 +86,7 @@ class RegisterFormState extends State<RegisterForm> {
           const SizedBox(height: 10),
           MainButton(
               label: "Register",
-              onPressedFunc: () async {
-                try {
-                  await GetIt.I.get<HttpHandler>().register(
-                      firstname: firstnameController.text.trim(),
-                      lastname: lastnameController.text.trim(),
-                      username: usernameController.text.trim(),
-                      email: emailController.text.trim(),
-                      password: passwordController.text);
-                } catch (e) {
-                  log(e.toString());
-                  Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text(e.toString())));
-                }
-              },
+              onPressedFunc: onPressedFunc,
               formKey: _formKey),
           LinkedButton(
             label: "I already have an account",
@@ -107,5 +97,29 @@ class RegisterFormState extends State<RegisterForm> {
         ],
       ),
     );
+  }
+
+  void onPressedFunc() async {
+    try {
+      Map<String, dynamic> tokens = await GetIt.I.get<HttpHandler>().register(
+          firstname: firstnameController.text.trim(),
+          lastname: lastnameController.text.trim(),
+          username: usernameController.text.trim(),
+          email: emailController.text.trim(),
+          password: passwordController.text);
+
+      final dataBox = Hive.box('data');
+      var token = tokens['token'];
+      var refreshToken = tokens['refreshToken'];
+
+      if (token == null || refreshToken == null) {
+        throw Exception(errorList[5]);
+      }
+      GetIt.I.get<Auth>().setToken(token);
+      GetIt.I.get<Auth>().setRefreshToken(refreshToken);
+      await GetIt.I.get<Auth>().save();
+    } catch (e) {
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 }
