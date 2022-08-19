@@ -79,6 +79,8 @@ class LoginFormState extends State<LoginForm> {
       GetIt.I.get<Auth>().setToken(token);
       GetIt.I.get<Auth>().setRefreshToken(refreshToken);
       await GetIt.I.get<Auth>().save();
+
+      VRouter.of(context).to('/home');
     } catch (e) {
       Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }

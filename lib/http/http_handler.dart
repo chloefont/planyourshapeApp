@@ -4,13 +4,14 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import './error_messages.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class HttpHandler {
   late final Dio _dio;
 
   HttpHandler() {
     var options = BaseOptions(
-      baseUrl: 'http://172.19.80.1:3000',
+      baseUrl: dotenv.env['BACKEND_IP'] as String,
       connectTimeout: 5000,
       receiveTimeout: 3000,
     );
