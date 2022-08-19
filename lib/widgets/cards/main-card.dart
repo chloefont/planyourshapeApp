@@ -23,7 +23,7 @@ class CustCard extends StatelessWidget {
             BoxShadow(
               blurRadius: 19.0,
               spreadRadius: 0.0,
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).colorScheme.secondaryContainer,
               offset: const Offset(0, 4),
             )
           ]),
