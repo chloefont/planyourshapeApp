@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'package:flutter/gestures.dart';
 import 'package:planyourshape/widgets/cards/training_card.dart';
 
 import '../widgets/forms/login_form.dart';
@@ -33,21 +34,21 @@ class Home extends StatelessWidget {
       ),
       body: Container(
         color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                TrainingCard(
-                  height: 300,
-                  width: 350,
-                  trainingName: "Pecs biceps",
-                  trainingDate: "19.08.2022",
-                )
-              ],
-            ),
-          ],
+        child: ListView.separated(
+          separatorBuilder: (BuildContext context, int index) =>
+              const SizedBox(height: 15),
+          padding: const EdgeInsets.all(25),
+          itemCount: 8,
+          itemBuilder: (BuildContext context, int index) {
+            return const TrainingCard(
+              height: 300,
+              width: 350,
+              trainingName: "Pecs biceps",
+              trainingDate: "19.08.2022",
+            );
+          },
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
         ),
       ),
     );
